@@ -30,6 +30,7 @@ public class MyView {
     }
 
     private void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
+        //변수명이 key, value로 맵에 루프를 다 돌린다고 생각.
         model.forEach((key, value) -> request.setAttribute(key, value));
     }
 }

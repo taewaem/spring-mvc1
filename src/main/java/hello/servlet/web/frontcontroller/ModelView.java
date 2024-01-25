@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class ModelView {
     private String viewName;
+
     private Map<String, Object> model = new HashMap<>();
 
     public ModelView(String viewName) {
@@ -26,7 +27,5 @@ public class ModelView {
     public void setModel(Map<String, Object> model) {
         this.model = model;
     }
-
-
 
 }

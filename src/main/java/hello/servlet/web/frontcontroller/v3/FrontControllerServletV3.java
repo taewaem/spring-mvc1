@@ -28,8 +28,9 @@ public class FrontControllerServletV3 extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestURI = request.getRequestURI();
 
+        //  /front-controller/v3/members/new-form
+        String requestURI = request.getRequestURI();
 
         ControllerV3 controller = controllerMap.get(requestURI);
         if (controller == null) {
@@ -37,21 +38,23 @@ public class FrontControllerServletV3 extends HttpServlet {
             return;
         }
 
-        //paramMap
 
         Map<String, String> paramMap = createParamMap(request);
         ModelView mv = controller.process(paramMap);
 
-        String viewName = mv.getViewName();   //논리이름
-        MyView view = viewResolver(viewName);
-        view.render(mv.getModel(),request, response);
 
+        String viewName = mv.getViewName();   //논리이름 ex) new-form
+        MyView view = viewResolver(viewName);   //논리이름을 물리이름으로 반환
+
+        view.render(mv.getModel(),request, response);
     }
 
     private MyView viewResolver(String viewName) {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
 
+
+    //paramMap을 넘겨주어야한다.
     private Map<String, String> createParamMap(HttpServletRequest request) {
         Map<String, String> paramMap = new HashMap<>();
         request.getParameterNames().asIterator()
